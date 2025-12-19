@@ -1,0 +1,42 @@
+# Файлы операционной системы
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Редакторы и IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Временные файлы
+tmp/
+temp/
+*.tmp
+*.log
+npm-debug.log*
+
+# Служебные файлы Windows
+desktop.ini
+
+# Зависимости (если используете npm)
+node_modules/
+
+# Сборки и минифицированные файлы (если генерируете)
+dist/
+build/
+*.min.js
+*.min.css
+
+# Файлы конфигурации среды
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Файлы редакторов
+*.sublime-*
