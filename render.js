@@ -11,25 +11,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const isOpen = teacher.classList.contains("open");
 
-            document.querySelectorAll(".teacher").forEach((t) => {
-            t.classList.remove("open");
-            t.querySelector(".teacher-info").style.display = "none";
-            });
+            closeAllTeachers();
 
             if (!isOpen) {
-            teacher.classList.add("open");
-            info.style.display = "block";
+                teacher.classList.add("open");
+                info.style.display = "block";
             }
         });
     });
 
     document.addEventListener("click", () => {
-        document.querySelectorAll(".teacher").forEach((t) => {
-            t.classList.remove("open");
-            t.querySelector(".teacher-info").style.display = "none";
-        });
+        closeAllTeachers();
     });
-
 
     callAll();
 });
@@ -40,31 +33,86 @@ function callAll() {
     closeButton();
     showEnter();
 
-    checkInput('register-username', 'register-password');
-    checkInput('username', 'password');
-
     authInit();
     loginSubmit();
     logoutButton();
     registerSubmit();
-
 }
+
+// функция закрытия всех teacher
+function closeAllTeachers() {
+    document.querySelectorAll(".teacher").forEach((t) => {
+        t.classList.remove("open");
+        t.querySelector(".teacher-info").style.display = "none";
+    });
+}
+
+// функция показа ошибки
+function showError(msg) {
+    const errorText = document.getElementById('error-text');
+    if (!errorText) return;
+
+    errorText.textContent = msg;
+    errorText.classList.add('active');
+    setTimeout(() => {
+        errorText.classList.remove('active');
+        errorText.textContent = '';
+    }, 3000);
+}
+
+// Функция очистки полей инпута
+function clearAuthForm() {
+    const ids = ['register-username','register-password',
+        'username','password'];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+
+    const errorText = document.getElementById('error-text');
+    if (errorText) {
+        errorText.classList.remove('active');
+        errorText.textContent = '';
+    }
+}
+
+// функция показа окна Вход
+function showLoginTab() {
+    const regis = document.getElementById('regis');
+    const login = document.getElementById('login');
+    if (!regis || !login) return;
+
+    regis.classList.remove('active');
+    login.classList.add('active');
+}
+
+// функция показа окна Регистрация
+function showRegisterTab() {
+    const regis = document.getElementById('regis');
+    const login = document.getElementById('login');
+    if (!regis || !login) return;
+
+    login.classList.remove('active');
+    regis.classList.add('active');
+}
+
 
 // функция обработки кнопки входа
 function enterButton() {
     const entrance = document.getElementById('entrance');
     const loginOverlay = document.querySelector('.login-overlay');
-    const login = document.getElementById('login');
 
-    if (!entrance || !loginOverlay || !login) return;
+    if (!entrance || !loginOverlay) return;
 
     entrance.addEventListener('click', function(e) {
         e.preventDefault();
-        login.classList.remove('active');
 
+        clearAuthForm();
+        showLoginTab();
         loginOverlay.classList.add('active');
     });
 }
+
 
 // функция закрытие окна Входа
 function closeButton() {
@@ -80,44 +128,20 @@ function closeButton() {
 
 // функция переключения между вход/регистрация
 function showEnter() {
-    const loginOverlay = document.querySelector('.login-overlay');
     const createButton = document.getElementById('create-button');
-    const regis = document.getElementById('regis');
-    const login = document.getElementById('login');
     const regButton = document.getElementById('reg-button');
 
-    if (!loginOverlay || !createButton || !regis || !login || !regButton) return;
+    if (!createButton || !regButton) return;
 
     createButton.addEventListener('click', function() {
-        regis.classList.remove('active')
-
-        login.classList.add('active');
+        clearAuthForm();
+        showLoginTab();
     });
 
     regButton.addEventListener('click', function() {
-        regis.classList.add('active');
-
-        login.classList.remove('active')
+        clearAuthForm();
+        showRegisterTab();
     });
-}
-
-// функция проверки input
-function checkInput(login, password) { 
-    const loginInp = document.getElementById(login);
-    const passwordInp = document.getElementById(password);
-
-    const errorText = document.getElementById('error-text');
-    errorText.classList.remove('active');
-
-    if (!loginInp || !passwordInp) {
-        errorText.textContent = 'Введите полные данные';
-        errorText.classList.add('active');
-
-        setTimeout(() => {
-            errorText.classList.remove('active');
-            errorText.textContent = '';
-        }, 3000);
-    }
 }
 
 // функция показа Логина пользователя
@@ -134,6 +158,9 @@ function setUserUI(username) {
     logout.classList.remove('hidden');
 
     if (loginOverlay) loginOverlay.classList.remove('active');
+
+    clearAuthForm();
+    showLoginTab();
 }
 
 // функция очистки Логина с экрана
@@ -186,15 +213,6 @@ function loginSubmit() {
             showError('Неверный логин или пароль');
         }
     });
-
-    function showError(msg) {
-        errorText.textContent = msg;
-        errorText.classList.add('active');
-        setTimeout(() => {
-            errorText.classList.remove('active');
-            errorText.textContent = '';
-        }, 3000);
-    }
 }
 
 // функция регистрации
@@ -224,15 +242,6 @@ function registerSubmit() {
         localStorage.setItem('currentUser', username);
         setUserUI(username);
     });
-
-    function showError(msg) {
-        errorText.textContent = msg;
-        errorText.classList.add('active');
-        setTimeout(() => {
-            errorText.classList.remove('active');
-            errorText.textContent = '';
-        }, 3000);
-    }
 }
 
 // функция выхода
@@ -243,5 +252,8 @@ function logoutButton() {
     logout.addEventListener('click', function () {
         localStorage.removeItem('currentUser');
         clearUserUI();
+
+        clearAuthForm();
+        showLoginTab();
     });
 }

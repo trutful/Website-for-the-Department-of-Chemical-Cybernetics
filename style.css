@@ -38,6 +38,28 @@ body {
     display:none !important;
 }
 
+#logout{
+    background: transparent;
+    color: var(--burgundy);
+    border: 2px solid var(--burgundy);
+    padding: 9px 20px;
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+#logout:hover{
+    background: var(--burgundy);
+    color: #fff;
+}
+
+#logout:active{
+    transform: translateY(1px);
+    opacity: .9;
+}
+
 
 .login-overlay {
     position: fixed;
