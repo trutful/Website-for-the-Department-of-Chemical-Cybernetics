@@ -23,6 +23,126 @@ body {
     line-height: 1.65;
 }
 
+.login-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s ease, visibility .25s ease;
+}
+
+.login-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.login-container {
+    background: #fff;
+    width: 100%;
+    max-width: 420px;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.25);
+
+    transform: scale(.9);
+    transition: transform .25s ease;
+}
+
+.login-overlay.active .login-container {
+    transform: scale(1);
+}
+
+.login-container h2 {
+    text-align: center;
+    color: var(--burgundy);
+    margin-bottom: 22px;
+}
+
+.log {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.log.active {
+    display: flex;
+}
+
+.log label {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.log input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 15px;
+}
+
+.log input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.log button {
+    margin-top: 14px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: var(--burgundy);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.log button:hover {
+    background: var(--burgundy-dark);
+}
+
+.login-container {
+    position: relative;
+}
+
+.login-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+
+    font-size: 26px;
+    line-height: 1;
+    font-weight: 400;
+
+    color: var(--muted);
+    cursor: pointer;
+
+    transition: background .2s ease, color .2s ease, transform .1s ease;
+}
+
+.login-close:hover {
+    background: var(--burgundy-soft);
+    color: var(--burgundy);
+}
+
+.login-close:active {
+    transform: scale(0.92);
+}
+
+
 .cap-container {
     display: flex;
     align-items: center;
