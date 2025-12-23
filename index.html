@@ -11,8 +11,13 @@
     <div class="cap-container">
         <img src="img/logo23.png">
 
-        <button type="button" id="entrance">Войти</button>
+        <div class="user-bar">
+            <span class="user-name" id="user-name"></span>
+            <button type="button" id="entrance">Войти</button>
+            <button type="button" id="logout" class="hidden">Выйти</button>
+        </div>
     </div>
+
 
     <!-- Окно логина -->
     <div class="login-overlay">
@@ -42,6 +47,8 @@
                     <button type="button" id="go-button">Войти</button>
                     <button type="button" id="reg-button">Регистрация</button>
                 </div>
+
+                <p class="error active" id="error-text"></p>
             </form>
         </div>
 

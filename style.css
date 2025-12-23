@@ -23,6 +23,22 @@ body {
     line-height: 1.65;
 }
 
+.user-bar{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.user-name{
+    font-weight:800;
+    color: var(--burgundy);
+}
+
+.hidden{
+    display:none !important;
+}
+
+
 .login-overlay {
     position: fixed;
     inset: 0;
